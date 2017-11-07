@@ -2,7 +2,7 @@
   "name": "frontend-tracker",
   "version": "0.0.1",
   "description": "Monitoring frontend errors, send error to server automanticly.",
-  "main": "dist/tracker.min.js",
+  "main": "src/tracker.js",
   "scripts": {
     "test": "null"
   },

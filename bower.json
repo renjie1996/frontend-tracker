@@ -1,7 +1,7 @@
 {
   "name": "frontend-tracker",
   "description": "Monitoring frontend errors, send error to server automanticly.",
-  "main": "dist/tracker.min.js",
+  "main": "src/tracker.js",
   "authors": [
     "Pgyer"
   ],
