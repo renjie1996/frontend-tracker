@@ -17,6 +17,20 @@ Sending frontend error to server. Get frontend error before Issue created.
 
 ## Installation
 
+Use Bower
+
+    bower install frontend-tracker --save
+
+or Use npm
+
+    bower install frontend-tracker --save
+
+or directly download the ZIP archive to get frontend-tracker.
+
+then add into the page you want to inspect errors.
+
+    <script src="path/to/package/dist/tracker.min.js">
+
 ## Configuration
 
 Add following code into your html file to start and config Frontend Tracker.
