@@ -33,6 +33,7 @@ window.setTracker = function (config) {
       returnXHR.open = function (method, url, async, user, password) {
         returnXHR.tracker._request_method = method
         returnXHR.tracker._request_url = url
+        returnXHR.tracker._time_open = utilities.getTime()
         return returnXHR._tracker_open(method, url, async, user, password)
       }
       return returnXHR
@@ -73,10 +74,10 @@ window.setTracker = function (config) {
         return false
       },
       calculateTrackerTiming: function (tracker) {
-        if (tracker._time_load && tracker._time_send && tracker._time_done) {
-          var send = tracker._time_load - tracker._time_send
-          var load = tracker._time_done - tracker._time_load
-          var total = send + load
+        if (tracker._time_done && tracker._time_load && tracker._time_send && tracker._time_done) {
+          var send = tracker._time_send - tracker._time_open
+          var load = tracker._time_load - tracker._time_send
+          var total = tracker._time_done - tracker._time_open
           return {send: send, load: load, total: total}
         } else {
           return {send: 0, load: 0, total: 0}
@@ -103,6 +104,9 @@ window.setTracker = function (config) {
      * ------------------------------------------------------------------------
      */
     function scriptErrorHandler (ev) {
+      if (!ev.message) {
+        return true
+      }
       var errorData = utilities.composeScriptErrorData(ev.message, ev.filename, ev.lineno, ev.colno, ev.error)
       if (!utilities.checkCrossOrigin(ev.filename, config.script.exclude || !config.script)) {
         uploadError('SCRIPT', errorData)
@@ -122,7 +126,7 @@ window.setTracker = function (config) {
         }
       } else if (ev.type === 'error') {
         if (config.resource.log.error) {
-          errorData = utilities.composeResourceErrorData(ev.message, tag, resource)
+          errorData = utilities.composeResourceErrorData('LOAD ERROR', tag, resource)
           uploadError('RESOURCE', errorData)
         }
       }
