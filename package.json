@@ -2,13 +2,13 @@
   "name": "frontend-tracker",
   "version": "0.0.1",
   "description": "Monitoring frontend errors, send error to server automanticly.",
-  "main": "null",
+  "main": "dist/tracker.min.js",
   "scripts": {
     "test": "null"
   },
   "repository": {
     "type": "git",
-    "url": "null"
+    "url": "https://github.com/Pgyer/frontend-tracker.git"
   },
   "keywords": [
     "frontend",
