@@ -1,5 +1,10 @@
 # Frontend Tracker
 
+![GitHub version](https://badge.fury.io/gh/Pgyer%2Ffrontend-tracker.svg)
+![Bower version](https://badge.fury.io/bo/frontend-tracker.svg)
+![npm version](https://badge.fury.io/js/frontend-tracker.svg)
+
+
 ## Intro to Frontend Tracker
 
 Sending frontend error to server. Get frontend error before Issue created.
@@ -46,7 +51,10 @@ Add following code into your html file to start and config Frontend Tracker.
         timeout: true,
         error: true
       },
-      origin: [],
+      origin: [
+        'http://www.pgyer.com',
+        /.*\.tracup\.com/,
+      ],
       timeLimit: {
         send: 0,
         load: 0,
@@ -95,12 +103,12 @@ An object to config when XHR error occurred.
 | log.slowRequest | Required, Boolean, Default: `false` | Capture slow request if set to `true` |
 | log.timeout | Required, Boolean, Default: `false` | Capture XHR timeout event if set to `true` |
 | log.error | Required, Boolean, Default: `false` | Capture XHR error event if set to `true` |
-| log.origin | Optional, Array | A list of regular expression of URI that not to trigger cross origin error. |
-| log.timeLimit | Optional, Object | A object to describe slow log timing threshold. |
-| log.timeLimit.send | int, Default: 0 | xhr sending time threshold. `0` is no limit (ms) |
-| log.timeLimit.load | int, Default: 0 | xhr loading time threshold. `0` is no limit  (ms) |
-| log.timeLimit.total | int, Default: 0 | xhr total request time threshold. `0` is no limit (ms) |
-| log.exclude | Optional, Array | A list of regular expression of URI that not to trigger XHR error. |
+| origin | Optional, Array | Set Origin, both Sting and Regular expression accepted |
+| timeLimit | Optional, Object | A object to describe slow log timing threshold. |
+| timeLimit.send | int, Default: 0 | XHR sending time threshold. `0` is no limit (ms) |
+| timeLimit.load | int, Default: 0 | XHR loading time threshold. `0` is no limit  (ms) |
+| timeLimit.total | int, Default: 0 | XHR total request time threshold. `0` is no limit (ms) |
+| exclude | Optional, Array | Set ignore path, both Sting and Regular expression accepted |
 
 #### resource
 
@@ -114,8 +122,8 @@ An object to config when resource error occurred.
 | log | Required, Object  | Object to config log capture |
 | log.crossOrigin | Required, Boolean, Default: `false` | Capture resource cross origin if set to `true` |
 | log.error | Required, Boolean, Default: `false` | Capture resource error event if set to `true` |
-| log.origin | Optional, Array | A list of regular expression of URI that not to trigger cross origin error. |
-| log.exclude | Optional, Array | A list of regular expression of URI that not to trigger resource error. |
+| origin | Optional, Array | Set Origin, both Sting and Regular expression accepted |
+| exclude | Optional, Array | Set ignore path, both Sting and Regular expression accepted |
 
 #### script
 
@@ -128,7 +136,7 @@ An object to config when script error occurred.
 | :-- | :-- | :-- |
 | log | Required, Object  | Object to config log capture |
 | log.error | Required, Boolean, Default: `false` | Capture script error event if set to `true` |
-| log.exclude | Optional, Array | A list of regular expression of URI that not to trigger script error. |
+| exclude | Optional, Array | Set ignore filename, both Sting and Regular expression accepted |
 
 ## Handling Error Message
 
@@ -138,10 +146,10 @@ An error message in JSON format will post to endpoint when errors occurred.
 
 | name | value | description |
 | :-- | :-- | :-- |
-| type | string, `XHR`, `RESOURCE`, `SCRIPT`  | Type of error message. |
+| type | String | Type of error message. one of `XHR`, `RESOURCE`, `SCRIPT` |
 | data | Object | Detailed error information. |
-| currentURL | string | URL of target page. |
-| userAgent | string | User-Agent String of target Browser. |
+| currentURL | String | URL of target page. |
+| userAgent | String | User-Agent String of target Browser. |
 
 Error message can be get from `data.message`. Detail error data can be get via parsing from `data.detail` field.
 
@@ -149,7 +157,7 @@ Error message can be get from `data.message`. Detail error data can be get via p
 | :-- | :-- | :-- |
 | XHR | {request: String, response: {status: int, response: String},timing: {send: int, load: int, total: int}} | `request`: Request URL, `status`: status code of xhr, `response`: response text form xhr, `send`: sending time of xhr (ms), `load`: loading time of xhr (ms), `total`: request time of xhr (ms) |
 | RESOURCE | {tagname: String, resourceURL: String} |  `tagname`: tagname of element, `resourceURL`: URL of resource |
-| SCRIPT | {file: String, line: int, column: int, trace: String} | `file`: script filename, `line`: line number of error script, `column`: column number of error script, `trace`: stack trace of error|
+| SCRIPT | {file: String, line: int, column: int, trace: String} | `file`: script filename, `line`: line number of error script, `column`: column number of error script, `trace`: stack trace of error |
 
 
 
