@@ -28,7 +28,7 @@ Use Bower
 
 or Use npm
 
-    bower install frontend-tracker --save
+    npm install frontend-tracker --save
 
 or directly download the ZIP archive to get frontend-tracker.
 
