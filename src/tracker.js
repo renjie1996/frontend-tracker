@@ -1,6 +1,6 @@
 /**
  * --------------------------------------------------------------------------
- * Frontend Tracker (v0.0.1): tracker.js
+ * Frontend Tracker (v0.0.6): tracker.js
  * Licensed under GPL-3.0
  * --------------------------------------------------------------------------
  */
@@ -108,7 +108,7 @@ window.setTracker = function (config) {
         return true
       }
       var errorData = utilities.composeScriptErrorData(ev.message, ev.filename, ev.lineno, ev.colno, ev.error)
-      if (!utilities.checkCrossOrigin(ev.filename, config.script.exclude || !config.script)) {
+      if (utilities.checkCrossOrigin(ev.filename, config.script.exclude) && config.script) {
         uploadError('SCRIPT', errorData)
       }
     }
@@ -116,7 +116,7 @@ window.setTracker = function (config) {
     function resourceLoadingHandler (ev) {
       var tag = ev.target.tagName
       var resource = ev.target.src
-      if (!utilities.checkCrossOrigin(resource, config.resource.exclude || !config.resource)) {
+      if (!utilities.checkCrossOrigin(resource, config.resource.exclude) || !config.resource) {
         return true
       }
       if (ev.type === 'load') {
