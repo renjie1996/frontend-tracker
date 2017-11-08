@@ -27,7 +27,7 @@ frontend-tracker 代码可以通过使用使用 Bower
 
 或者使用 npm
 
-    bower install frontend-tracker --save
+    npm install frontend-tracker --save
 
 或者直接下载 ZIP 包来获得.
 
