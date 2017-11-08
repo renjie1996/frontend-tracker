@@ -139,14 +139,13 @@ An error message in JSON format will post to endpoint when errors occurred.
 | name | value | description |
 | :-- | :-- | :-- |
 | type | string, `XHR`, `RESOURCE`, `SCRIPT`  | Type of error message. |
-| message | string | Error message. |
-| detail | string | Detailed error message. |
+| data | Object | Detailed error information. |
 | currentURL | string | URL of target page. |
 | userAgent | string | User-Agent String of target Browser. |
 
-Detail error data can be get via parsing detail field.
+Error message can be get from `data.message`. Detail error data can be get via parsing from `data.detail` field.
 
-| type | Structure of detail | description |
+| type | Structure of `data.detail` | description |
 | :-- | :-- | :-- |
 | XHR | {request: String, response: {status: int, response: String},timing: {send: int, load: int, total: int}} | `request`: Request URL, `status`: status code of xhr, `response`: response text form xhr, `send`: sending time of xhr (ms), `load`: loading time of xhr (ms), `total`: request time of xhr (ms) |
 | RESOURCE | {tagname: String, resourceURL: String} |  `tagname`: tagname of element, `resourceURL`: URL of resource |
